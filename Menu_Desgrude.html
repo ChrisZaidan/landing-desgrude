@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Menu de Conversas — Desgrude Inteligente</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+    :root {
+        --bg-paper: #FDFDFB;
+        --text-dark: #2D2A26;
+        
+        --c1-light: #FFF0E6; 
+        --c1-dark: #D35400;
+        
+        --c2-light: #E8F5E9; 
+        --c2-dark: #27AE60;
+        
+        --c3-light: #F4EBFA; 
+        --c3-dark: #8E44AD;
+    }
+    
+    body {
+        margin: 0;
+        padding: 0;
+        background: #E5E5E5;
+        font-family: 'Inter', sans-serif;
+        color: var(--text-dark);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        -webkit-font-smoothing: antialiased;
+    }
+
+    .menu-wrapper {
+        width: 297mm;
+        height: 210mm;
+        background: var(--bg-paper);
+        box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+        display: flex;
+        flex-direction: row;
+        box-sizing: border-box;
+        overflow: hidden;
+    }
+
+    .column {
+        flex: 1;
+        padding: 8mm 10mm; 
+        display: flex;
+        flex-direction: column;
+        border-right: 2px dashed #E2DED5; 
+        position: relative;
+    }
+    .column:last-child {
+        border-right: none;
+    }
+
+    .header-box {
+        text-align: center;
+        padding: 8px;
+        border-radius: 12px;
+        margin-bottom: 12px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        flex-shrink: 0;
+    }
+    .header-icon {
+        font-size: 24px;
+        margin-bottom: 2px;
+    }
+    .header-box h2 {
+        font-family: 'Playfair Display', serif;
+        font-size: 22px;
+        font-weight: 800;
+        margin: 0 0 2px 0;
+        letter-spacing: -0.02em;
+    }
+    .header-box p {
+        margin: 0;
+        font-size: 10.5px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        opacity: 0.8;
+    }
+
+    .col-1 .header-box { background: var(--c1-light); color: var(--c1-dark); }
+    .col-2 .header-box { background: var(--c2-light); color: var(--c2-dark); }
+    .col-3 .header-box { background: var(--c3-light); color: var(--c3-dark); }
+
+    .col-1 .num { color: var(--c1-dark); }
+    .col-2 .num { color: var(--c2-dark); }
+    .col-3 .num { color: var(--c3-dark); }
+
+    .questions-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    .question-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 6px;
+        font-size: 10px; 
+        line-height: 1.3;
+        font-weight: 500;
+        margin-bottom: 2px;
+    }
+    .num {
+        font-family: 'Playfair Display', serif;
+        font-weight: 800;
+        font-size: 11px;
+        width: 15px;
+        flex-shrink: 0;
+        text-align: right;
+        margin-top: 1px;
+    }
+    .text {
+        flex-grow: 1;
+    }
+
+    .menu-footer {
+        text-align: center;
+        margin-top: 4px;
+        font-family: 'Playfair Display', serif;
+        font-style: italic;
+        font-size: 11px;
+        color: #999;
+        flex-shrink: 0;
+    }
+
+    @media print {
+        @page { size: A4 landscape; margin: 0; }
+        body { background: none; }
+        .menu-wrapper { box-shadow: none; width: 100%; height: 100vh; }
+        * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+    }
+</style>
+</head>
+<body>
+
+<div class="menu-wrapper">
+    
+    <!-- COLUNA 1 -->
+    <div class="column col-1">
+        <div class="header-box">
+            <span class="header-icon">🎨</span>
+            <h2>Entradas</h2>
+            <p>Para abrir a imaginação</p>
+        </div>
+        
+        <!-- BLOCO RÍGIDO (SUBSTITUI A TAG IMG) -->
+        <div style="width: 100%; height: 95px; min-height: 95px; flex-shrink: 0; background-image: url('IMG/menu-1.jpg'); background-size: cover; background-position: center; border-radius: 10px; margin-bottom: 12px; border: 1px solid rgba(0,0,0,0.05);"></div>
+
+        <ul class="questions-list">
+            <li class="question-item"><span class="num">01</span><span class="text">Se você tivesse um superpoder por um dia, o que faria primeiro?</span></li>
+            <li class="question-item"><span class="num">02</span><span class="text">Se seus brinquedos falassem, o que diriam quando você sai?</span></li>
+            <li class="question-item"><span class="num">03</span><span class="text">Se chovesse sua comida favorita, o que estaria caindo do céu?</span></li>
+            <li class="question-item"><span class="num">04</span><span class="text">Se fosse rei ou rainha do mundo por um dia, qual seria a 1ª regra?</span></li>
+            <li class="question-item"><span class="num">05</span><span class="text">Como você descreveria a cor azul para quem nunca viu as cores?</span></li>
+            <li class="question-item"><span class="num">06</span><span class="text">Se pudesse misturar dois animais, quais seriam e qual o nome?</span></li>
+            <li class="question-item"><span class="num">07</span><span class="text">Qual foi a coisa mais engraçada que você viu ou ouviu hoje?</span></li>
+            <li class="question-item"><span class="num">08</span><span class="text">Para qual desenho animado você viajaria se pudesse entrar na TV?</span></li>
+            <li class="question-item"><span class="num">09</span><span class="text">O que os animais de estimação pensam quando nos olham quietos?</span></li>
+            <li class="question-item"><span class="num">10</span><span class="text">Se respirássemos debaixo d'água, como seria a nossa casa?</span></li>
+            <li class="question-item"><span class="num">11</span><span class="text">Se inventasse um feriado novo, qual seria o nome e a festa?</span></li>
+            <li class="question-item"><span class="num">12</span><span class="text">Se você pudesse escolher um nome novo para você mesmo, qual seria?</span></li>
+            <li class="question-item"><span class="num">13</span><span class="text">O que você faria se encontrasse um baú de tesouro no quintal?</span></li>
+            <li class="question-item"><span class="num">14</span><span class="text">Se você pudesse voar por 10 minutos, para onde você iria?</span></li>
+            <li class="question-item"><span class="num">15</span><span class="text">Qual som ou barulho você acha que é o mais engraçado do mundo?</span></li>
+            <li class="question-item"><span class="num">16</span><span class="text">Se a gente abrisse um restaurante, qual seria a especialidade?</span></li>
+            <li class="question-item"><span class="num">17</span><span class="text">Se você fosse um gigante, qual seria a coisa mais legal de fazer?</span></li>
+        </ul>
+    </div>
+
+    <!-- COLUNA 2 -->
+    <div class="column col-2">
+        <div class="header-box">
+            <span class="header-icon">🧭</span>
+            <h2>Prato Principal</h2>
+            <p>O mapa do coração</p>
+        </div>
+        
+        <!-- BLOCO RÍGIDO (SUBSTITUI A TAG IMG) -->
+        <div style="width: 100%; height: 95px; min-height: 95px; flex-shrink: 0; background-image: url('IMG/menu-2.jpg'); background-size: cover; background-position: center; border-radius: 10px; margin-bottom: 12px; border: 1px solid rgba(0,0,0,0.05);"></div>
+
+        <ul class="questions-list">
+            <li class="question-item"><span class="num">18</span><span class="text">Qual foi o momento de hoje que fez seu coração bater mais feliz?</span></li>
+            <li class="question-item"><span class="num">19</span><span class="text">Tem algo que te deixa triste e que às vezes eu não percebo?</span></li>
+            <li class="question-item"><span class="num">20</span><span class="text">O que faz você se sentir realmente seguro(a) e protegido(a)?</span></li>
+            <li class="question-item"><span class="num">21</span><span class="text">Quando sente medo de algo, o que te ajuda a se acalmar?</span></li>
+            <li class="question-item"><span class="num">22</span><span class="text">Qual foi a coisa mais corajosa que você já fez até hoje?</span></li>
+            <li class="question-item"><span class="num">23</span><span class="text">Como você sabe de verdade quando alguém ama muito você?</span></li>
+            <li class="question-item"><span class="num">24</span><span class="text">Se o seu sorriso tivesse um som ou uma música, como ele seria?</span></li>
+            <li class="question-item"><span class="num">25</span><span class="text">O que você acha que significa ser um bom amigo de verdade?</span></li>
+            <li class="question-item"><span class="num">26</span><span class="text">O que tem vontade de fazer quando se sente muito irritado(a)?</span></li>
+            <li class="question-item"><span class="num">27</span><span class="text">Para você, qual é a melhor e mais divertida coisa em ser criança?</span></li>
+            <li class="question-item"><span class="num">28</span><span class="text">O que é difícil em ser criança que os adultos não entendem?</span></li>
+            <li class="question-item"><span class="num">29</span><span class="text">Se pudesse guardar um sentimento num potinho, qual seria?</span></li>
+            <li class="question-item"><span class="num">30</span><span class="text">Se fosse me ensinar algo novo hoje, o que você me ensinaria?</span></li>
+            <li class="question-item"><span class="num">31</span><span class="text">O que você acha que as estrelas fazem durante o dia?</span></li>
+            <li class="question-item"><span class="num">32</span><span class="text">Se pudesse fazer uma pergunta para Deus, o que perguntaria?</span></li>
+            <li class="question-item"><span class="num">33</span><span class="text">Se escrevesse um livro sobre a sua vida, qual seria o título?</span></li>
+            <li class="question-item"><span class="num">34</span><span class="text">Qual talento ou habilidade você tem muita vontade de aprender?</span></li>
+        </ul>
+    </div>
+
+    <!-- COLUNA 3 -->
+    <div class="column col-3">
+        <div class="header-box">
+            <span class="header-icon">🤍</span>
+            <h2>Sobremesa</h2>
+            <p>Para adoçar o vínculo</p>
+        </div>
+        
+        <!-- BLOCO RÍGIDO (SUBSTITUI A TAG IMG) -->
+        <div style="width: 100%; height: 95px; min-height: 95px; flex-shrink: 0; background-image: url('IMG/menu-3.jpg'); background-size: cover; background-position: center; border-radius: 10px; margin-bottom: 12px; border: 1px solid rgba(0,0,0,0.05);"></div>
+
+        <ul class="questions-list">
+            <li class="question-item"><span class="num">35</span><span class="text">O que a nossa família faz de melhor quando estamos todos juntos?</span></li>
+            <li class="question-item"><span class="num">36</span><span class="text">Qual tradição nossa você mais gosta e não quer que mude nunca?</span></li>
+            <li class="question-item"><span class="num">37</span><span class="text">Como eu posso ser um pai/mãe ainda melhor para você amanhã?</span></li>
+            <li class="question-item"><span class="num">38</span><span class="text">Se a nossa família tivesse uma "palavra mágica" só nossa, qual seria?</span></li>
+            <li class="question-item"><span class="num">39</span><span class="text">O que você mais gosta e admira no meu jeito de ser?</span></li>
+            <li class="question-item"><span class="num">40</span><span class="text">Quando ficar bem velhinho(a), o que vai ensinar aos mais jovens?</span></li>
+            <li class="question-item"><span class="num">41</span><span class="text">Se ficássemos presos numa ilha, o que faríamos para nos divertir?</span></li>
+            <li class="question-item"><span class="num">42</span><span class="text">Qual é o prato de comida que tem gosto de "casa e abraço" para você?</span></li>
+            <li class="question-item"><span class="num">43</span><span class="text">Como você descreveria a nossa família para quem não nos conhece?</span></li>
+            <li class="question-item"><span class="num">44</span><span class="text">Se fôssemos uma banda, que instrumento cada pessoa de casa tocaria?</span></li>
+            <li class="question-item"><span class="num">45</span><span class="text">Qual foi o melhor conselho ou a melhor coisa que eu já te ensinei?</span></li>
+            <li class="question-item"><span class="num">46</span><span class="text">Pelo que você é mais grato(a) e feliz no dia de hoje?</span></li>
+            <li class="question-item"><span class="num">47</span><span class="text">O que você quer que a gente faça mais vezes juntos daqui pra frente?</span></li>
+            <li class="question-item"><span class="num">48</span><span class="text">Se a nossa casa pudesse voar, onde você estacionaria ela amanhã?</span></li>
+            <li class="question-item"><span class="num">49</span><span class="text">Qual é a sua memória mais feliz e divertida com a nossa família?</span></li>
+            <li class="question-item"><span class="num">50</span><span class="text">Se a gente construísse um forte na sala hoje, quem moraria lá dentro?</span></li>
+            <li class="question-item"><span class="num">51</span><span class="text">Qual abraço você mais gostou de receber hoje?</span></li>
+            <li class="question-item"><span class="num">52</span><span class="text">Se pudesse escolher um sonho para sonhar hoje à noite, qual seria?</span></li>
+        </ul>
+        
+        <div class="menu-footer">Desgrude Inteligente • 52 Semanas de Presença</div>
+    </div>
+
+</div>
+
+</body>
+</html>

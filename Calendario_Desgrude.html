@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calendário de 30 Dias — Desgrude Inteligente</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+    :root {
+        --bg-paper: #FDFDFB;
+        --text-dark: #2D2A26;
+        --text-light: #555555;
+        
+        --c1-light: #FFF0E6; 
+        --c1-dark: #D35400;
+        
+        --c2-light: #E8F5E9; 
+        --c2-dark: #27AE60;
+        
+        --c3-light: #F4EBFA; 
+        --c3-dark: #8E44AD;
+
+        --c4-light: #F0F4F8;
+        --c4-dark: #2C3E50;
+    }
+    
+    body {
+        margin: 0;
+        padding: 0;
+        background: #E5E5E5;
+        font-family: 'Inter', sans-serif;
+        color: var(--text-dark);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        -webkit-font-smoothing: antialiased;
+    }
+
+    /* Formato A4 Retrato para o Calendário */
+    .calendar-wrapper {
+        width: 210mm;
+        height: 297mm;
+        background: var(--bg-paper);
+        box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+        display: flex;
+        flex-direction: column;
+        box-sizing: border-box;
+        padding: 12mm 15mm;
+        overflow: hidden;
+    }
+
+    .header {
+        text-align: center;
+        margin-bottom: 8mm;
+    }
+    .header h1 {
+        font-family: 'Playfair Display', serif;
+        font-size: 28px;
+        font-weight: 800;
+        margin: 0 0 5px 0;
+        letter-spacing: -0.02em;
+        color: var(--text-dark);
+    }
+    .header p {
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        color: var(--c1-dark);
+        margin: 0;
+    }
+
+    .week-block {
+        margin-bottom: 6mm;
+    }
+    
+    .week-title {
+        font-family: 'Playfair Display', serif;
+        font-size: 16px;
+        font-weight: 700;
+        margin-bottom: 3px;
+        padding-bottom: 2px;
+        border-bottom: 1px solid #E2DED5;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .w1 { color: var(--c1-dark); border-bottom-color: var(--c1-light); }
+    .w2 { color: var(--c2-dark); border-bottom-color: var(--c2-light); }
+    .w3 { color: var(--c3-dark); border-bottom-color: var(--c3-light); }
+    .w4 { color: var(--c4-dark); border-bottom-color: var(--c4-light); }
+
+    .days-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+    }
+
+    .day-row {
+        display: flex;
+        align-items: flex-start;
+        font-size: 9.5px;
+        line-height: 1.3;
+    }
+
+    .day-num {
+        font-family: 'Playfair Display', serif;
+        font-weight: 800;
+        font-size: 11px;
+        width: 45px;
+        flex-shrink: 0;
+    }
+
+    .day-desc {
+        flex-grow: 1;
+        color: var(--text-light);
+    }
+    .day-desc strong {
+        color: var(--text-dark);
+        font-weight: 600;
+    }
+
+    .footer {
+        margin-top: auto;
+        text-align: center;
+        font-family: 'Playfair Display', serif;
+        font-style: italic;
+        font-size: 10px;
+        color: #999;
+        border-top: 1px dashed #E2DED5;
+        padding-top: 5mm;
+    }
+
+    @media print {
+        @page { size: A4 portrait; margin: 0; }
+        body { background: none; }
+        .calendar-wrapper { box-shadow: none; width: 100%; height: 100vh; }
+        * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+    }
+</style>
+</head>
+<body>
+
+<div class="calendar-wrapper">
+    
+    <div class="header">
+        <h1>30 Dias de Presença</h1>
+        <p>Calendário Desgrude Inteligente</p>
+    </div>
+
+    <!-- SEMANA 1 -->
+    <div class="week-block">
+        <div class="week-title w1">Semana 1: O Retorno à Calma (Regulação)</div>
+        <div class="days-grid">
+            <div class="day-row">
+                <div class="day-num w1">DIA 01</div>
+                <div class="day-desc"><strong>A Vela do Sentir:</strong> Sentar em silêncio e observar a chama dançar para focar a atenção e acalmar a mente[cite: 3].</div>
+            </div>
+            <div class="day-row">
+                <div class="day-num w1">DIA 02</div>
+                <div class="day-desc"><strong>A Vela que Derrete Medos:</strong> Dizer uma palavra ruim que aconteceu no dia e imaginar que o calor da chama a está derretendo[cite: 3].</div>
+            </div>
+            <div class="day-row">
+                <div class="day-num w1">DIA 03</div>
+                <div class="day-desc"><strong>O Jarro de Calma:</strong> Misturar água, cola e purpurina no pote, agitar e observar a tempestade turva se acalmar[cite: 3].</div>
+            </div>
+            <div class="day-row">
+                <div class="day-num w1">DIA 04</div>
+                <div class="day-desc"><strong>Jarra de Boa Noite:</strong> Agitar o jarro antes de dormir e combinar de fechar os olhos assim que a água ficar limpa[cite: 3].</div>
+            </div>
+            <div class="day-row">
+                <div class="day-num w1">DIA 05</div>
+                <div class="day-desc"><strong>Cores dos Sentimentos:</strong> Criar novos potes de calma atribuindo cores diferentes para cada emoção[cite: 3].</div>
+            </div>
+            <div class="day-row">
+                <div class="day-num w1">DIA 06</div>
+                <div class="day-desc"><strong>Sopro de Bolhas Consciente:</strong> Inspirar profundamente pelo nariz e soltar o ar bem devagar para não estourar a bolha de sabão[cite: 3].</div>
+            </div>
+            <div class="day-row">
+                <div class="day-num w1">DIA 07</div>
+                <div class="day-desc"><strong>Bolha do Desejo:</strong> Pensar em uma palavra boa antes de soprar para espalhá-la pelo ar e desafiar quem consegue criar a maior bolha soprando lentamente[cite: 3].</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SEMANA 2 -->
+    <div class="week-block">
+        <div class="week-title w2">Semana 2: A Beleza da Atenção (Foco & Motricidade)</div>
+        <div class="days-grid">
+            <div class="day-row">
+                <div class="day-num w2">DIA 08</div>
+                <div class="day-desc"><strong>Caixa de Fechos:</strong> Explorar, no próprio tempo, a abertura e o fechamento de diferentes cadeados e mecanismos em uma caixa[cite: 3].</div>
+            </div>
+            <div class="day-row">
+                <div class="day-num w2">DIA 09</div>
+                <div class="day-desc"><strong>O Resgate do Tesouro:</strong> Esconder um objeto querido na caixa para ser resgatado de olhos fechados e adivinhar os sons mecânicos dos trincos[cite: 3].</div>
+            </div>
+            <div class="day-row">
+                <div class="day-num w2">DIA 10</div>
+                <div class="day-desc"><strong>Bordado Livre:</strong> Passar um fio de lã através de furos em um papelão firme, traçando o próprio caminho[cite: 3].</div>
+            </div>
+            <div class="day-row">
+                <div class="day-num w2">DIA 11</div>
+                <div class="day-desc"><strong>Bordado da Natureza:</strong> Utilizar folhas grandes e caídas do quintal como base orgânica para passar os fios coloridos[cite: 3].</div>
+            </div>
+            <div class="day-row">
+                <div class="day-num w2">DIA 12</div>
+                <div class="day-desc"><strong>Linha Sensorial:</strong> Costurar alternando fios com texturas diferentes, como um barbante rústico seguido por uma lã felpuda[cite: 3].</div>
+            </div>
+            <div class="day-row">
+                <div class="day-num w2">DIA 13</div>
+                <div class="day-desc"><strong>Mosaico de Revistas:</strong> Rasgar papéis coloridos manualmente e preencher uma silhueta grande usando cola[cite: 3].</div>
+            </div>
+            <div class="day-row">
+                <div class="day-num w2">DIA 14</div>
+                <div class="day-desc"><strong>Mosaico Monocromático:</strong> Buscar nuances de uma única cor nas revistas e misturar a colagem com elementos secos encontrados no chão[cite: 3].</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SEMANA 3 -->
+    <div class="week-block">
+        <div class="week-title w3">Semana 3: O Valor do Cotidiano (Autonomia & Vida Prática)</div>
+        <div class="days-grid">
+            <div class="day-row">
+                <div class="day-num w3">DIA 15</div>
+                <div class="day-desc"><strong>Chef por Um Dia:</strong> Convidar a criança a usar xícaras de medida para adicionar e misturar ingredientes de uma receita simples[cite: 3].</div>
+            </div>
+            <div class="day-row">
+                <div class="day-num w3">DIA 16</div>
+                <div class="day-desc"><strong>O Alquimista dos Temperos:</strong> Escolher temperos explorando o olfato e estimular a criança a criar desenhos durante a montagem do alimento no prato[cite: 3].</div>
+            </div>
+            <div class="day-row">
+                <div class="day-num w3">DIA 17</div>
+                <div class="day-desc"><strong>Meu Canteiro Secreto:</strong> Afofar a terra, depositar a semente com o dedo indicador e borrifar água[cite: 3].</div>
+            </div>
+            <div class="day-row">
+                <div class="day-num w3">DIA 18</div>
+                <div class="day-desc"><strong>Berçário de Algodão:</strong> Fazer o clássico plantio do feijão no algodão transparente para observar visualmente a quebra da casca e o surgir das raízes[cite: 3].</div>
+            </div>
+            <div class="day-row">
+                <div class="day-num w3">DIA 19</div>
+                <div class="day-desc"><strong>Pintura do Vaso:</strong> Permitir que a criança decore a parte externa do vaso de plantas com tintas ou giz[cite: 3].</div>
+            </div>
+            <div class="day-row">
+                <div class="day-num w3">DIA 20</div>
+                <div class="day-desc"><strong>Dobrar com Maestria:</strong> Ensinar o movimento simétrico de unir as pontas para dobrar panos de prato limpos sobre a mesa[cite: 3].</div>
+            </div>
+            <div class="day-row">
+                <div class="day-num w3">DIA 21</div>
+                <div class="day-desc"><strong>O Desafio dos Pares:</strong> Encontrar meias espalhadas unindo os pares correspondentes e criar dobraduras com formatos diferentes usando toalhas[cite: 3].</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SEMANA 4 -->
+    <div class="week-block">
+        <div class="week-title w4">Semana 4 & Encerramento: A Leveza do Encontro</div>
+        <div class="days-grid">
+            <div class="day-row">
+                <div class="day-num w4">DIA 22</div>
+                <div class="day-desc"><strong>Teatro de Fantoches:</strong> Improvisar narrativas lúdicas usando personagens criados com meias velhas ou sacos de papel[cite: 3].</div>
+            </div>
+            <div class="day-row">
+                <div class="day-num w4">DIA 23</div>
+                <div class="day-desc"><strong>Teatro das Sombras:</strong> Apagar as luzes e usar uma lanterna para projetar silhuetas de mãos e papelão na parede[cite: 3].</div>
+            </div>
+            <div class="day-row">
+                <div class="day-num w4">DIA 24</div>
+                <div class="day-desc"><strong>O Monstro Amigo:</strong> Introduzir um fantoche que só fala sussurrando, fazendo a criança prestar atenção para decifrar seu segredo[cite: 3].</div>
+            </div>
+            <div class="day-row">
+                <div class="day-num w4">DIA 25</div>
+                <div class="day-desc"><strong>Livro Sem Palavras:</strong> Acomodar-se com um livro apenas de imagens e alternar a vez de inventar o que está acontecendo na cena[cite: 3].</div>
+            </div>
+            <div class="day-row">
+                <div class="day-num w4">DIA 26</div>
+                <div class="day-desc"><strong>Trilha Sonora Humana:</strong> Inventar uma subtrama inteira para um pequeno detalhe na página e reproduzir os efeitos sonoros da história com a boca[cite: 3].</div>
+            </div>
+            <div class="day-row">
+                <div class="day-num w4">DIA 27</div>
+                <div class="day-desc"><strong>Ritual da Noite Estrelada:</strong> Observar luzes projetadas no teto em um ambiente de meia-luz e compartilhar algo bonito que aconteceu no dia[cite: 3].</div>
+            </div>
+            <div class="day-row">
+                <div class="day-num w4">DIA 28</div>
+                <div class="day-desc"><strong>Mapa das Estrelas da Gratidão:</strong> Escolher três coisas pelas quais são gratos e imaginá-las como estrelas brilhando no céu[cite: 3].</div>
+            </div>
+            <div class="day-row">
+                <div class="day-num w4">DIA 29</div>
+                <div class="day-desc"><strong>Constelação dos Sonhos:</strong> A criança inventa uma constelação imaginária e cria uma pequena história sobre ela antes do descanso[cite: 3].</div>
+            </div>
+            <div class="day-row">
+                <div class="day-num w4">DIA 30</div>
+                <div class="day-desc"><strong>A Celebração da Infância:</strong> Relembrar as melhores coisas do mês ao assoprar a vela com a família[cite: 3] e preencher o Certificado de Presença para celebrar a escolha pela conexão real[cite: 6].</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">Desgrude Inteligente • Menos excesso. Mais intenção.</div>
+
+</div>
+
+</body>
+</html>

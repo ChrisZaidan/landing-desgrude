@@ -1,0 +1,648 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Desgrude Inteligente — Presença ao invés de telas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,500;1,700&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  /* Paleta — roxo autoridade + laranja conversão + creme quente */
+  --bg-dark: oklch(20% 0.05 295);
+  --bg-cream: oklch(97% 0.018 75);      /* fundo quente, NÃO frio */
+  --surface: oklch(100% 0 0);
+  --fg: oklch(22% 0.03 290);
+  --charcoal: oklch(32% 0.01 290);      /* Grafite escuro / Chumbo */
+  --muted: oklch(48% 0.02 290);
+  --border: oklch(88% 0.012 75);
+
+  --purple: oklch(38% 0.11 295);
+  --purple-deep: oklch(22% 0.06 295);
+
+  /* Laranja solar / Terracota */
+  --cta: oklch(65% 0.15 50); 
+  --cta-hover: oklch(60% 0.14 50);
+  
+  --success: oklch(60% 0.13 150);
+  --danger: oklch(58% 0.19 25);
+
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  --space-xs: 8px;  --space-sm: 16px; --space-md: 24px;
+  --space-lg: 40px; --space-xl: 64px; --space-2xl: 96px; --space-3xl: 128px;
+
+  --radius-sm: 4px; --radius-md: 8px; --radius-lg: 16px;
+
+  --shadow-card: 0 10px 40px rgba(0,0,0,.03);
+  --shadow-cta: 0 4px 14px rgba(0,0,0,0.06);
+
+  --timing: 300ms;
+  --easing: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--charcoal);
+  background: var(--bg-cream);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ===== TIPOGRAFIA ===== */
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+}
+h1 { font-size: clamp(44px, 8vw, 82px); font-weight: 900; margin-bottom: var(--space-lg); }
+h2 { font-size: clamp(34px, 5.5vw, 54px); font-weight: 800; margin-bottom: var(--space-lg); color: var(--charcoal); }
+h3 { font-size: clamp(22px, 3.5vw, 30px); margin-bottom: var(--space-md); color: var(--charcoal); }
+
+.subheadline {
+  font-size: clamp(19px, 2.6vw, 25px);
+  line-height: 1.5;
+  font-weight: 400;
+  max-width: 760px;
+}
+
+.container { max-width: 1200px; margin: 0 auto; padding: 0 var(--space-md); }
+@media (min-width: 768px) { .container { padding: 0 var(--space-lg); } }
+
+section { padding: var(--space-2xl) 0; }
+@media (min-width: 768px) { section { padding: var(--space-3xl) 0; } }
+
+/* Alternância de fundos = ritmo visual */
+.bg-cream  { background: var(--bg-cream); }
+.bg-white  { background: var(--surface); }
+.bg-dark   { background: linear-gradient(160deg, var(--bg-dark), var(--purple-deep)); color: var(--surface); }
+.bg-dark h2, .bg-dark h3 { color: var(--surface); }
+
+/* ===== BOTÃO CTA — SOFISTICADO / FLAT ===== */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  gap: var(--space-sm);
+  padding: 22px 44px;
+  background: var(--cta);
+  color: var(--surface);
+  font-family: var(--font-body);
+  font-size: 16px; font-weight: 600;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  border: none; border-radius: var(--radius-sm);
+  cursor: pointer; text-decoration: none;
+  box-shadow: var(--shadow-cta);
+  transition: all var(--timing) var(--easing);
+  position: relative; overflow: hidden;
+}
+.btn::before {
+  content: ''; position: absolute; top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.2), transparent);
+  transition: left .6s ease;
+}
+.btn:hover::before { left: 100%; }
+.btn:hover {
+  background: var(--cta-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+}
+.btn:active { transform: translateY(0); }
+.btn-large { padding: 24px 48px; font-size: 17px; }
+.btn-arrow { width: 22px; height: 22px; stroke: currentColor; stroke-width: 2; fill: none; transition: transform var(--timing); }
+.btn:hover .btn-arrow { transform: translateX(5px); }
+
+/* Badge de urgência/escassez */
+.badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  color: var(--muted);
+  border: 1px solid var(--border);
+  padding: 8px 18px; border-radius: 100px;
+  font-size: 13px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: .08em;
+  margin-bottom: var(--space-md);
+}
+.bg-dark .badge { color: oklch(80% 0.15 60); border-color: rgba(255,255,255,0.2); }
+
+/* ===== HERO ===== */
+.hero { position: relative; min-height: 100vh; display: flex; align-items: center;
+  padding: var(--space-xl) 0; overflow: hidden; }
+.hero-grid { position: relative; z-index: 1; display: grid; grid-template-columns: 1fr;
+  gap: var(--space-xl); align-items: center; }
+@media (min-width: 968px) { .hero-grid { grid-template-columns: 1.25fr 1fr; gap: var(--space-2xl); } }
+
+.hero-content h1 { color: var(--surface); text-wrap: balance; }
+.hero-content .subheadline { color: oklch(90% 0.02 290); font-weight: 300; margin-bottom: var(--space-xl); }
+
+.hero-img { width: 100%; height: 520px; }
+@media (min-width: 0) { .hero-img { height: 640px; } }
+
+.hero-features { display: grid; grid-template-columns: 1fr; gap: var(--space-md);
+  margin-top: var(--space-xl); padding-top: var(--space-xl);
+  border-top: 1px solid oklch(45% 0.07 295); }
+@media (min-width: 480px) { .hero-features { grid-template-columns: repeat(2, 1fr); } }
+.feature-item { display: flex; align-items: flex-start; gap: 12px; font-size: 15px;
+  font-weight: 400; color: oklch(92% 0.02 290); }
+.feature-item::before { content: '—'; color: var(--cta); font-weight: 400; flex-shrink: 0; }
+
+/* ===== DOR ===== */
+.pain-text { max-width: 700px; font-size: 20px; line-height: 1.8; color: var(--charcoal); font-weight: 300; }
+.pain-text p { margin-bottom: 12px; }
+.pain-text em {
+  font-style: italic; font-family: var(--font-display);
+  font-size: clamp(26px, 4vw, 34px); color: var(--charcoal);
+  display: block; margin: var(--space-xl) 0; line-height: 1.3; font-weight: 400;
+  border-left: 1px solid var(--charcoal); padding-left: var(--space-lg);
+}
+.pain-section h2 { max-width: 880px; margin-bottom: var(--space-xl); }
+
+/* ===== VIRADA ===== */
+.transform-grid { display: grid; grid-template-columns: 1fr; gap: var(--space-xl); align-items: center; }
+@media (min-width: 968px) { .transform-grid { grid-template-columns: 1fr 1.15fr; gap: var(--space-2xl); } }
+.transform-images { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-sm); }
+.transform-content p { margin-bottom: 16px; font-size: 18px; font-weight: 300; }
+.transform-content strong { color: var(--charcoal); font-size: 20px; font-weight: 500; display: block; margin-top: 24px;}
+
+/* ===== CARDS ===== */
+.cards-grid { display: grid; grid-template-columns: 1fr; gap: var(--space-md); margin-top: var(--space-xl); }
+@media (min-width: 640px) { .cards-grid { grid-template-columns: repeat(2, 1fr); } }
+.card {
+  background: var(--surface); border: 1px solid var(--border);
+  padding: var(--space-xl);
+  transition: all var(--timing) var(--easing);
+}
+.card:hover { box-shadow: var(--shadow-card); transform: translateY(-3px); }
+.card h3 { font-size: 22px; margin-bottom: 12px; color: var(--charcoal); font-weight: 600; }
+.card p { color: var(--charcoal); font-size: 16px; line-height: 1.6; font-weight: 300; }
+
+/* ===== PREVIEW ===== */
+.preview-grid { display: grid; grid-template-columns: 1fr; gap: var(--space-lg); margin-top: var(--space-xl); }
+@media (min-width: 768px) { .preview-grid { grid-template-columns: repeat(3, 1fr); } }
+.preview-card .cap { color: var(--muted); font-size: 13px; text-align: center; font-weight: 400; text-transform: uppercase; letter-spacing: 0.05em; margin-top: 16px; }
+.preview-features { list-style: none; margin-top: var(--space-xl); padding-top: var(--space-xl);
+  border-top: 1px solid var(--border); display: grid; grid-template-columns: 1fr; gap: 16px; max-width: 760px; }
+@media (min-width: 640px) { .preview-features { grid-template-columns: repeat(2, 1fr); } }
+.preview-features li { display: flex; align-items: flex-start; gap: 12px; font-size: 16px; color: var(--charcoal); font-weight: 400; }
+.preview-features li::before { content: '—'; color: var(--charcoal); font-weight: 300; flex-shrink: 0; }
+
+/* ===== TABELA COMPARATIVA ===== */
+.comparison-table { width: 100%; max-width: 860px; margin: var(--space-xl) auto 0;
+  border-collapse: collapse; background: transparent; }
+.comparison-table th { padding: var(--space-lg) 0; font-family: var(--font-body);
+  font-size: 14px; font-weight: 600; text-align: left; text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 1px solid var(--charcoal); }
+.comparison-table th:first-child { color: var(--muted); }
+.comparison-table th:last-child { color: var(--charcoal); }
+.comparison-table td { padding: var(--space-lg) 0; border-bottom: 1px solid var(--border); font-size: 17px; font-weight: 300; }
+.comparison-table tr:last-child td { border-bottom: 1px solid var(--border); }
+.comparison-table td:first-child { color: var(--muted); }
+.comparison-table td:last-child { font-weight: 500; color: var(--charcoal); }
+
+/* ===== BÔNUS EDITORIAL ===== */
+.bonus-grid { display: grid; grid-template-columns: 1fr; gap: 0; margin-top: var(--space-xl); border-top: 1px solid var(--border); }
+.bonus-item { display: flex; align-items: baseline; gap: var(--space-md);
+  padding: var(--space-lg) 0;
+  border-bottom: 1px solid var(--border);
+  transition: all var(--timing) var(--easing); }
+.bonus-num { font-family: var(--font-display); font-size: 20px; font-style: italic; color: var(--muted); width: 40px; flex-shrink: 0; }
+.bonus-item h3 { font-size: 20px; margin-bottom: 8px; font-weight: 500; font-family: var(--font-display); }
+.bonus-item p { font-size: 15px; color: var(--muted); font-weight: 300; }
+
+/* ===== TRANSFORMAÇÃO (antes/depois) EDITORIAL ===== */
+.contrast-grid { display: grid; grid-template-columns: 1fr; gap: var(--space-xl); margin-top: var(--space-xl); }
+@media (min-width: 768px) { 
+  .contrast-grid { grid-template-columns: 1fr 1fr; position: relative; }
+  .contrast-list.less { padding-right: var(--space-2xl); border-right: 1px solid var(--border); }
+  .contrast-list.more { padding-left: var(--space-xl); }
+}
+.contrast-list { padding: 0; background: transparent; border: none; }
+.contrast-list h3 { font-size: 32px; margin-bottom: var(--space-lg); font-style: italic; color: var(--charcoal); }
+.contrast-list ul { list-style: none; padding: 0; margin: 0; }
+.contrast-list li { display: block; padding-bottom: 16px; margin-bottom: 16px; font-size: 17px; font-weight: 300; color: var(--charcoal); border-bottom: 1px solid var(--border); }
+.contrast-list li:last-child { border-bottom: none; }
+
+/* ===== PROVA SOCIAL EDITORIAL ===== */
+.social-proof { text-align: center; }
+.proof-stats {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-md); max-width: 720px; margin: 0 auto var(--space-2xl);
+}
+@media (max-width: 560px) { .proof-stats { grid-template-columns: 1fr; gap: var(--space-lg); border-bottom: 1px solid var(--border); padding-bottom: var(--space-lg); } }
+.stat-item { padding: 0; background: transparent; border: none; }
+.stat-item:not(:last-child) { border-right: 1px solid var(--border); }
+@media (max-width: 560px) { .stat-item:not(:last-child) { border-right: none; border-bottom: 1px solid var(--border); padding-bottom: var(--space-md); } }
+.stat-number { font-family: var(--font-display); font-size: clamp(34px, 6vw, 48px); font-weight: 500; color: var(--charcoal); line-height: 1; display: block; font-style: italic; }
+.stat-label { font-size: 12px; font-weight: 400; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; margin-top: 12px; display: block; }
+
+.testimonials-grid { display: grid; grid-template-columns: 1fr; gap: var(--space-xl); text-align: center; max-width: 900px; margin: 0 auto; }
+@media (min-width: 768px) { .testimonials-grid { grid-template-columns: repeat(3, 1fr); } }
+.testimonial { background: transparent; border: none; padding: 0; box-shadow: none; display: flex; flex-direction: column; gap: var(--space-md); }
+.testimonial-text { font-size: 17px; line-height: 1.7; color: var(--charcoal); font-style: italic; font-weight: 300; flex-grow: 1; }
+.testimonial-author { display: block; padding-top: var(--space-sm); }
+.author-info strong { display: block; font-size: 14px; color: var(--charcoal); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+.author-info span { font-size: 13px; color: var(--muted); font-weight: 300; }
+
+/* ===== OFERTA EDITORIAL ===== */
+.offer-section { text-align: center; background: var(--bg-cream); padding: var(--space-3xl) 0; }
+.offer-section h2 { max-width: 600px; margin: 0 auto var(--space-sm); }
+.offer-section .subheadline { color: var(--muted); margin: 0 auto var(--space-2xl); font-style: italic; font-family: var(--font-display); }
+.offer-box { max-width: 540px; margin: 0 auto; padding: 0; background: transparent; box-shadow: none; color: var(--charcoal); }
+.offer-list { list-style: none; margin: 0 0 var(--space-2xl) 0; text-align: center; padding-top: var(--space-xl); border-top: 1px solid var(--border); }
+.offer-list li { display: block; margin-bottom: 12px; font-size: 16px; font-weight: 400; color: var(--muted); }
+.price { margin: 0 0 var(--space-xl) 0; }
+.price-old { font-size: 16px; color: var(--muted); text-decoration: line-through; display: block; margin-bottom: 8px; font-weight: 300; }
+.price-current { font-family: var(--font-display); font-size: clamp(54px, 10vw, 72px);
+  color: var(--charcoal); font-weight: 500; display: block; letter-spacing: -.02em; line-height: 1; }
+.price-note { font-size: 14px; color: var(--muted); margin-top: 12px; font-weight: 300; }
+.guarantee { display: block; margin-top: var(--space-md); font-size: 13px; color: var(--muted); font-weight: 400; text-transform: uppercase; letter-spacing: 0.05em; }
+
+/* ===== SELOS DE PAGAMENTO MINIMALISTAS ===== */
+.payment-trust { margin-top: var(--space-xl); padding-top: var(--space-lg); }
+.payment-methods { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: var(--space-lg); margin-bottom: var(--space-sm); opacity: 0.5; filter: grayscale(100%); }
+.pay-badge { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 500; color: var(--charcoal); text-transform: uppercase; letter-spacing: 0.05em; }
+.secure-note { font-size: 12px; color: var(--muted); font-weight: 300; margin-top: var(--space-md); }
+
+/* ===== FAQ EDITORIAL ===== */
+.faq-section { background: var(--surface); padding: var(--space-3xl) 0; }
+.faq-wrap { max-width: 760px; margin: var(--space-xl) auto 0; border-top: 1px solid var(--border); }
+.faq-item { border: none; border-bottom: 1px solid var(--border); background: transparent; margin: 0; border-radius: 0; }
+.faq-item summary {
+  list-style: none; cursor: pointer; padding: var(--space-lg) 0; font-family: var(--font-display);
+  font-size: clamp(18px, 3vw, 21px); font-weight: 500; color: var(--charcoal);
+  display: flex; justify-content: space-between; align-items: center; transition: color var(--timing);
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::after { content: '+'; font-family: var(--font-body); font-size: 24px; font-weight: 300; color: var(--muted); transition: transform var(--timing) var(--easing); line-height: 1; }
+.faq-item[open] summary::after { transform: rotate(45deg); }
+.faq-answer { padding: 0 0 var(--space-lg) 0; font-size: 16px; line-height: 1.7; color: var(--muted); font-weight: 300; }
+
+/* ===== FECHAMENTO ===== */
+.closing-section { text-align: center; }
+.closing-img { width: 100%; max-width: 780px; height: 480px; margin: 0 auto var(--space-2xl); object-fit: cover; }
+@media (min-width: 768px) { .closing-img { height: 580px; } }
+.closing-quote { font-family: var(--font-display); font-style: italic;
+  font-size: clamp(32px, 5vw, 44px); line-height: 1.25; color: var(--charcoal);
+  max-width: 760px; margin: 0 auto var(--space-xl); font-weight: 500; }
+.closing-text { max-width: 640px; margin: 0 auto; font-size: 18px; line-height: 1.7; color: var(--muted); font-weight: 300; }
+.closing-text p { margin-bottom: var(--space-md); }
+.closing-emphasis { font-family: var(--font-display); font-size: clamp(28px, 4vw, 36px);
+  color: var(--cta); margin-top: var(--space-xl); font-weight: 600; font-style: italic; }
+
+/* ===== IMAGENS REAIS ===== */
+.hero-img, .closing-img { border-radius: 0; display: block; }
+.transform-images img { width: 100%; height: 220px; object-fit: cover; border-radius: 0; }
+@media (min-width: 768px) { .transform-images img { height: 250px; } }
+.preview-card img { width: 100%; height: 380px; object-fit: cover; border-radius: 0; margin-bottom: var(--space-sm); border: 1px solid var(--border); padding: 8px; background: #fff; }
+.preview-card img { transition: transform var(--timing) var(--easing); }
+.preview-card img:hover { transform: translateY(-4px); }
+
+/* CORREÇÃO A4 */
+.preview-card img { width: 100% !important; height: auto !important; aspect-ratio: 1 / 1.414 !important; object-fit: contain !important; object-position: top !important; }
+
+/* HERO GRID */
+.hero-grid { display: flex; align-items: center; gap: 40px; flex-wrap: wrap; }
+.hero-content, .hero-grid > img { flex: 1 1 0; min-width: 0; }
+.hero-content h1 { font-size: clamp(2.5rem, 4.5vw, 4.5rem) !important; line-height: 1.05; word-wrap: break-word; margin: 0 0 20px 0; }
+.hero-grid > img { width: 100%; height: auto; border-radius: 0; object-fit: cover; }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero bg-dark">
+  <div class="container">
+    <div class="hero-grid">
+      <div class="hero-content">
+        <span class="badge">Edição Especial</span>
+        <h1>Seu filho não precisa de mais estímulos. Precisa de mais presença.</h1>
+        <p class="subheadline">12 experiências simples que ajudam sua família a substituir telas por conexão, calma, criatividade e desenvolvimento emocional.</p>
+        <a href="#oferta" class="btn btn-large">
+          Quero começar hoje
+        </a>
+        <div class="hero-features">
+          <div class="feature-item">Atividades de 10 a 30 minutos</div>
+          <div class="feature-item">Materiais simples da sua casa</div>
+          <div class="feature-item">Para crianças de 3 a 8 anos</div>
+          <div class="feature-item">Sem telas, sem pressão, sem culpa</div>
+        </div>
+      </div>
+      <img src="IMG/hero.jpg?v=2" alt="Mãe sentada no chão com a criança, sem celulares, momento rea...">>
+    </div>
+  </div>
+</section>
+
+<!-- DOR -->
+<section class="pain-section bg-white">
+  <div class="container">
+    <h2>Você também sente que as telas estão ocupando espaço demais na infância?</h2>
+    <div class="pain-text">
+      <p>Você entrega o celular por alguns minutos.</p>
+      <p>Os minutos viram horas.</p>
+      <p>A conversa diminui.</p>
+      <p>A criatividade desaparece.</p>
+      <p>O tédio vira ansiedade.</p>
+      <p>E no final do dia fica aquela sensação silenciosa:</p>
+      <em>"Eu queria estar mais presente."</em>
+      <p>Não é falta de amor.</p>
+      <p>É falta de alternativas simples e possíveis dentro da rotina real.</p>
+    </div>
+  </div>
+</section>
+
+<!-- VIRADA -->
+<section class="bg-cream">
+  <div class="container">
+    <div class="transform-grid">
+      <div class="transform-images">
+        <img src="IMG/crianca-plantando.jpg" alt="Criança plantando">
+        <img src="IMG/crianca-desenhando.jpg" alt="Criança desenhando">
+        <img src="IMG/mae-lendo.jpg" alt="Mãe lendo para o filho">
+        <img src="IMG/familia-conversando.jpg" alt="Família conversando">
+      </div>
+      <div class="transform-content">
+        <h2>E se existisse um caminho mais leve?</h2>
+        <p>O Desgrude Inteligente foi criado para transformar momentos comuns em experiências que fortalecem o vínculo entre pais e filhos.</p>
+        <p>Sem brinquedos caros.</p>
+        <p>Sem materiais complexos.</p>
+        <p>Sem atividades impossíveis.</p>
+        <strong>Apenas experiências simples que geram memórias reais.</strong>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- O QUE VOCÊ RECEBE -->
+<section class="bg-white">
+  <div class="container">
+    <h2>Dentro do Desgrude Inteligente</h2>
+    <div class="cards-grid">
+      <div class="card"><h3>Calma & Regulação</h3><p>Experiências que ajudam a desacelerar e reduzir a agitação.</p></div>
+      <div class="card"><h3>Foco & Motricidade</h3><p>Atividades que desenvolvem atenção e coordenação.</p></div>
+      <div class="card"><h3>Autonomia & Vida Prática</h3><p>Experiências que fortalecem independência e responsabilidade.</p></div>
+      <div class="card"><h3>Criatividade & Vínculo</h3><p>Momentos que estimulam imaginação e conexão emocional.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PREVIEW -->
+<section class="bg-cream">
+  <div class="container">
+    <h2>Um ebook pensado para ser vivido</h2>
+    <div class="preview-grid">
+      <div class="preview-card">
+        <img src="IMG/preview-atividades.jpg" alt="Páginas das atividades">
+        <p class="cap">Páginas das atividades</p>
+      </div>
+      <div class="preview-card">
+        <img src="IMG/preview-reflexao.jpg" alt="Páginas de reflexão">
+        <p class="cap">Páginas de reflexão</p>
+      </div>
+      <div class="preview-card">
+        <img src="IMG/preview-acompanhamento.jpg" alt="Páginas de acompanhamento">
+        <p class="cap">Páginas de acompanhamento</p>
+      </div>
+    </div>
+    <ul class="preview-features">
+      <li>Benefício principal de cada atividade</li>
+      <li>Lista de materiais necessários (simples)</li>
+      <li>Passo a passo descomplicado</li>
+      <li>Variações para adaptar a experiência</li>
+      <li>Espaço para registrar descobertas e emoções</li>
+    </ul>
+  </div>
+</section>
+
+<!-- DIFERENCIAL -->
+<section class="bg-white">
+  <div class="container">
+    <h2>Não é apenas um ebook de atividades</h2>
+    <table class="comparison-table">
+      <thead><tr><th>Outros ebooks</th><th>Desgrude Inteligente</th></tr></thead>
+      <tbody>
+        <tr><td>Entretêm</td><td>Conectam</td></tr>
+        <tr><td>Ocupam tempo</td><td>Criam memórias</td></tr>
+        <tr><td>Focam apenas na criança</td><td>Envolvem toda a família</td></tr>
+        <tr><td>São descartáveis</td><td>Geram rituais familiares</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- BÔNUS -->
+<section class="bg-cream">
+  <div class="container">
+    <h2>Materiais complementares</h2>
+    <div class="bonus-grid">
+      <div class="bonus-item">
+        <div class="bonus-num">01</div>
+        <div>
+          <h3>Diário de Presença Familiar</h3>
+          <p>Para registrar os pequenos grandes momentos do dia a dia.</p>
+        </div>
+      </div>
+      <div class="bonus-item">
+        <div class="bonus-num">02</div>
+        <div>
+          <h3>Calendário 30 Dias de Presença</h3>
+          <p>Um guia visual para manter a consistência da nova rotina.</p>
+        </div>
+      </div>
+      <div class="bonus-item">
+        <div class="bonus-num">03</div>
+        <div>
+          <h3>Certificado Família Desgrude</h3>
+          <p>Um marco simbólico para celebrar o compromisso de vocês.</p>
+        </div>
+      </div>
+      <div class="bonus-item">
+        <div class="bonus-num">04</div>
+        <div>
+          <h3>52 Perguntas para Aproximar</h3>
+          <p>Iniciadores de conversa para aprofundar o vínculo.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRANSFORMAÇÃO -->
+<section class="bg-white">
+  <div class="container">
+    <h2>Imagine sua casa daqui a algumas semanas...</h2>
+    <div class="contrast-grid">
+      <div class="contrast-list less">
+        <h3>Menos</h3>
+        <ul>
+          <li>Discussões para largar o celular</li>
+          <li>Excesso de estímulo e agitação</li>
+          <li>A culpa constante de não estar lá</li>
+        </ul>
+      </div>
+      <div class="contrast-list more">
+        <h3>Mais</h3>
+        <ul>
+          <li>Conversas genuínas no final do dia</li>
+          <li>Criatividade fluindo naturalmente</li>
+          <li>Presença real e intencional</li>
+          <li>Memórias que não se apagam</li>
+          <li>Conexão emocional profunda</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROVA SOCIAL -->
+<section class="social-proof bg-cream">
+  <div class="container">
+    <h2>Famílias que trocaram a tela pela presença</h2>
+
+    <div class="proof-stats">
+      <div class="stat-item">
+        <span class="stat-number">+3k</span>
+        <span class="stat-label">famílias transformadas</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">4,9</span>
+        <span class="stat-label">avaliação média</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">12</span>
+        <span class="stat-label">experiências guiadas</span>
+      </div>
+    </div>
+
+    <div class="testimonials-grid">
+      <div class="testimonial">
+        <p class="testimonial-text">"Eu vivia em guerra na hora de tirar o celular. Hoje meu filho me chama para fazer as atividades. Mudou o clima da casa inteira."</p>
+        <div class="testimonial-author">
+          <div class="author-info">
+            <strong>Mariana S.</strong>
+            <span>Mãe do Theo, 5 anos</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial">
+        <p class="testimonial-text">"Achei que seria mais uma lista de atividades chatas. Mas são simples, rápidas e realmente aproximam. A gente conversa muito mais agora."</p>
+        <div class="testimonial-author">
+          <div class="author-info">
+            <strong>Patrícia L.</strong>
+            <span>Mãe de gêmeos, 7 anos</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial">
+        <p class="testimonial-text">"O que mais me tocou foi o espaço para registrar as descobertas. Virou um diário afetivo da nossa família. Vale muito mais que o preço."</p>
+        <div class="testimonial-author">
+          <div class="author-info">
+            <strong>Carla M.</strong>
+            <span>Mãe da Alice, 4 anos</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OFERTA -->
+<section class="offer-section" id="oferta">
+  <div class="container">
+    <h2>Comece hoje a proteger o que não volta</h2>
+    <p class="subheadline">A infância não espera.</p>
+    <div class="offer-box">
+      <ul class="offer-list">
+        <li>Ebook completo Desgrude Inteligente</li>
+        <li>12 experiências guiadas de conexão</li>
+        <li>Pacote com 4 materiais complementares</li>
+        <li>Acesso digital imediato</li>
+      </ul>
+      <div class="price">
+        <span class="price-current">R$ 19,90</span>
+        <span class="price-note">Pagamento único. Acesso vitalício.</span>
+      </div>
+      <a href="https://pay.kiwify.com.br/2YS9RkN" class="btn btn-large" target="_blank" rel="noopener">
+        Garantir meu acesso
+      </a>
+      <span class="guarantee">Garantia de 7 dias — risco zero</span>
+
+      <div class="payment-trust">
+        <div class="payment-methods">
+          <span class="pay-badge">Cartão</span>
+          <span class="pay-badge">Pix</span>
+          <span class="pay-badge">Boleto</span>
+          <span class="pay-badge">SSL Seguro</span>
+        </div>
+        <div class="secure-note">Transação 100% segura e criptografada</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section">
+  <div class="container">
+    <h2 style="text-align:center;">Dúvidas frequentes</h2>
+
+    <div class="faq-wrap">
+      <details class="faq-item">
+        <summary>Funciona com criança de 3 anos?</summary>
+        <div class="faq-answer">
+          Sim. As experiências foram pensadas para a faixa de 3 a 8 anos. As atividades trazem variações que permitem adaptar o nível de complexidade conforme a idade e o ritmo do seu filho.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>O material é impresso ou digital?</summary>
+        <div class="faq-answer">
+          É 100% digital (PDF). Após a compra, você recebe o acesso imediato no seu e-mail e pode ler no celular, tablet ou computador — ou imprimir as páginas que quiser usar com a criança.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Preciso comprar materiais ou brinquedos especiais?</summary>
+        <div class="faq-answer">
+          Não. Todas as atividades usam materiais simples que você já tem em casa. A proposta é justamente substituir o excesso de estímulos por presença e criatividade — sem custos extras.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Quanto tempo leva cada atividade?</summary>
+        <div class="faq-answer">
+          Entre 10 e 30 minutos. Foram desenhadas para caber na rotina real de uma família ocupada, sem exigir longos blocos de tempo ou preparação complicada.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Como recebo o acesso após a compra?</summary>
+        <div class="faq-answer">
+          O acesso é imediato. Assim que o pagamento é confirmado (instantâneo no Pix e cartão), você recebe o ebook e todos os complementos diretamente no seu e-mail.
+        </div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- FECHAMENTO -->
+<section class="closing-section bg-cream">
+  <div class="container">
+    <img src="IMG/fechamento.jpg" alt="Mãe abraçando o filho, momento de conexão profunda" class="closing-img">
+    <p class="closing-quote">"O celular pode esperar. A infância não."</p>
+    <div class="closing-text">
+      <p>Cada atividade deste livro foi criada para lembrar algo simples:</p>
+      <p>Nenhuma tecnologia substitui uma memória construída em conjunto.</p>
+      <p>Hoje você pode escolher dar ao seu filho algo que ele carregará para sempre:</p>
+      <p class="closing-emphasis">Sua presença.</p>
+      <a href="https://pay.kiwify.com.br/2YS9RkN" class="btn btn-large" target="_blank" rel="noopener" style="margin-top: var(--space-xl);">
+  Garantir meu acesso agora
+      </a>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

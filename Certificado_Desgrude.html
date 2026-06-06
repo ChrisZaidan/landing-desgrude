@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Certificado Família Desgrude</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+    :root {
+        /* Paleta Editorial Colorida */
+        --bg-grad: linear-gradient(135deg, #FFFCF5 0%, #F2EBE1 100%); /* Simula papel quente/textura */
+        --text: #2D2A26; /* Grafite quente */
+        --accent: #C86B3C; /* Terracota / Laranja queimado elegante */
+        --primary: #4A3B52; /* Roxo profundo, muito sofisticado */
+        --line: #D6D2C9; /* Linhas sutis */
+        --ink: #2C3E50; /* Azul caneta-tinteiro para a assinatura */
+    }
+    body {
+        margin: 0;
+        padding: 0;
+        background: #E5E5E5;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        font-family: 'Inter', sans-serif;
+        -webkit-font-smoothing: antialiased;
+    }
+    .certificate-wrapper {
+        background: var(--bg-grad);
+        width: 297mm; /* A4 Landscape */
+        height: 210mm;
+        box-shadow: 0 24px 60px rgba(74, 59, 82, 0.15); /* Sombra mais colorida */
+        position: relative;
+        box-sizing: border-box;
+        padding: 12mm;
+    }
+    /* Borda externa com a cor de destaque */
+    .certificate-border {
+        border: 2px solid var(--accent);
+        width: 100%;
+        height: 100%;
+        position: relative;
+        box-sizing: border-box;
+        padding: 2mm;
+    }
+    .certificate-inner {
+        border: 1px solid var(--line);
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        box-sizing: border-box;
+        padding: 10mm 20mm;
+        position: relative;
+    }
+    .eyebrow {
+        font-family: 'Inter', sans-serif;
+        font-weight: 600;
+        font-size: 13px;
+        letter-spacing: 0.35em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 25px;
+    }
+    .title {
+        font-family: 'Playfair Display', serif;
+        font-size: 56px;
+        font-weight: 700;
+        color: var(--primary);
+        margin: 0 0 35px 0;
+        letter-spacing: 0.01em;
+    }
+    .subtitle {
+        font-family: 'Inter', sans-serif;
+        font-weight: 400;
+        font-size: 17px;
+        color: var(--text);
+        margin-bottom: 25px;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+    }
+    .family-name-container {
+        display: flex;
+        align-items: baseline;
+        justify-content: center;
+        gap: 15px;
+        width: 75%;
+        margin-bottom: 45px;
+    }
+    .family-prefix {
+        font-family: 'Playfair Display', serif;
+        font-style: italic;
+        font-size: 46px;
+        color: var(--accent);
+    }
+    .family-line {
+        border-bottom: 1px solid var(--text);
+        flex-grow: 1;
+        height: 40px;
+    }
+    .description {
+        font-family: 'Playfair Display', serif;
+        font-size: 23px;
+        line-height: 1.7;
+        color: var(--text);
+        max-width: 85%;
+        margin: 0 auto 60px auto;
+    }
+    .footer {
+        display: flex;
+        justify-content: space-between;
+        width: 80%;
+        margin: 0 auto;
+    }
+    .signature-block {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 240px;
+    }
+    .signature-line {
+        border-bottom: 1px solid var(--text);
+        width: 100%;
+        margin-bottom: 12px;
+        height: 50px; 
+    }
+    /* Assinatura cursiva com cor de tinta de caneta */
+    .signature-ink {
+        font-family: 'Playfair Display', serif;
+        font-style: italic;
+        font-size: 34px;
+        color: var(--ink);
+        line-height: 50px;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+    }
+    .signature-name {
+        font-family: 'Inter', sans-serif;
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--text);
+    }
+    .signature-title {
+        font-family: 'Playfair Display', serif;
+        font-style: italic;
+        font-size: 15px;
+        color: #7A756D;
+        margin-top: 6px;
+    }
+    /* Selo colorido */
+    .seal {
+        position: absolute;
+        bottom: 30px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--accent);
+        opacity: 0.85;
+    }
+    
+    /* Configurações de Impressão perfeitas */
+    @media print {
+        @page { 
+            size: A4 landscape; 
+            margin: 0; 
+        }
+        body { 
+            background: none; 
+            min-height: auto; 
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+        .certificate-wrapper { 
+            box-shadow: none; 
+            width: 100%; 
+            height: 100vh; 
+            padding: 10mm; 
+        }
+    }
+</style>
+</head>
+<body>
+    <div class="certificate-wrapper">
+        <div class="certificate-border">
+            <div class="certificate-inner">
+                
+                <div class="eyebrow">Desgrude Inteligente</div>
+                
+                <h1 class="title">Certificado de Presença</h1>
+                
+                <div class="subtitle">Concedido com alegria à</div>
+                
+                <div class="family-name-container">
+                    <span class="family-prefix">Família</span>
+                    <div class="family-line"></div>
+                </div>
+                
+                <div class="description">
+                    Por escolher a conexão real, o olho no olho e a construção de memórias que não se apagam. Por transformar o ritmo da casa, provando que a tecnologia pode esperar, mas a infância não.
+                </div>
+                
+                <div class="footer">
+                    <div class="signature-block">
+                        <div class="signature-line"></div>
+                        <div class="signature-name">Data</div>
+                        <div class="signature-title">O dia da decisão</div>
+                    </div>
+                    
+                    <div class="signature-block">
+                        <div class="signature-line signature-ink">Chris Zaidan</div>
+                        <div class="signature-name">Chris Zaidan</div>
+                        <div class="signature-title">Autora & Vó Maker</div>
+                    </div>
+                </div>
+                
+                <!-- Ícone minimalista de conexão em Terracota -->
+                <div class="seal">
+                    <svg width="45" height="45" viewBox="0 0 100 100">
+                        <circle cx="35" cy="50" r="22" stroke="currentColor" stroke-width="2" fill="none"/>
+                        <circle cx="65" cy="50" r="22" stroke="currentColor" stroke-width="2" fill="none"/>
+                    </svg>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>

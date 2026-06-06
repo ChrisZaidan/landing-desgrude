@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Capa do Menu — Desgrude Inteligente</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+    :root {
+        --bg-paper: #FDFDFB;
+        --text-dark: #2D2A26;
+        --accent: #D35400;
+    }
+    
+    body {
+        margin: 0;
+        padding: 0;
+        background: #E5E5E5;
+        font-family: 'Inter', sans-serif;
+        color: var(--text-dark);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        -webkit-font-smoothing: antialiased;
+    }
+
+    /* Formato A4 Paisagem */
+    .menu-wrapper {
+        width: 297mm;
+        height: 210mm;
+        background: var(--bg-paper);
+        box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+        display: flex;
+        flex-direction: row;
+        box-sizing: border-box;
+        overflow: hidden;
+    }
+
+    /* As 3 colunas do verso */
+    .column {
+        flex: 1;
+        padding: 15mm 12mm; 
+        display: flex;
+        flex-direction: column;
+        position: relative;
+    }
+
+    /* COLUNA 1: ABA INTERNA (Esquerda) */
+    .aba-interna {
+        justify-content: center;
+        border-right: 2px dashed #E2DED5; 
+    }
+    .aba-interna h3 {
+        font-family: 'Playfair Display', serif;
+        font-size: 18px;
+        font-weight: 700;
+        margin-bottom: 15px;
+        color: var(--accent);
+    }
+    .aba-interna p {
+        font-size: 11px;
+        line-height: 1.6;
+        margin-bottom: 12px;
+        color: #555;
+    }
+
+    /* COLUNA 2: CONTRACAPA (Meio) */
+    .contracapa {
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        border-right: 2px dashed #E2DED5; 
+        background-color: #FAFAFA;
+    }
+    .logo-marca {
+        font-family: 'Playfair Display', serif;
+        font-weight: 800;
+        font-size: 20px;
+        letter-spacing: -0.02em;
+        margin-bottom: 5px;
+    }
+    .manifesto {
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: #888;
+    }
+
+    /* COLUNA 3: CAPA FRONTAL (Direita) */
+    .capa-frontal {
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+    .capa-titulo {
+        font-family: 'Playfair Display', serif;
+        font-size: 42px;
+        font-weight: 800;
+        line-height: 1;
+        margin: 0 0 10px 0;
+        color: var(--text-dark);
+        letter-spacing: -0.03em;
+    }
+    .capa-subtitulo {
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: var(--accent);
+        margin-bottom: 40px;
+    }
+    
+    /* Imagem da Capa */
+    .foto-capa {
+        width: 100%;
+        height: 220px;
+        object-fit: cover;
+        border-radius: 12px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+        margin-bottom: 30px;
+    }
+
+    @media print {
+        @page { size: A4 landscape; margin: 0; }
+        body { background: none; }
+        .menu-wrapper { box-shadow: none; width: 100%; height: 100vh; }
+        * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+    }
+</style>
+</head>
+<body>
+
+<div class="menu-wrapper">
+    
+    <!-- ABA INTERNA (Aparece ao abrir a capa) -->
+    <div class="column aba-interna">
+        <h3>Como usar este menu</h3>
+        <p>A mesa sempre foi o lugar mais sagrado da casa. É onde nutrimos o corpo, mas também onde alimentamos os vínculos.</p>
+        <p>Este menu foi desenhado para eliminar o atrito. Não exige preparo, tesoura ou tempo livre. Basta dobrá-lo, deixá-lo no centro da mesa e permitir que a criança escolha a direção da conversa de hoje.</p>
+        <p><strong>Entradas:</strong> Para arrancar sorrisos e abrir a imaginação.<br>
+        <strong>Prato Principal:</strong> Para acessar sentimentos profundos.<br>
+        <strong>Sobremesa:</strong> Para cultivar memórias e afeto familiar.</p>
+    </div>
+
+    <!-- CONTRACAPA (Atrás do menu fechado) -->
+    <div class="column contracapa">
+        <div class="logo-marca">Desgrude Inteligente</div>
+        <div class="manifesto">Desligue as telas • Sirva o afeto</div>
+    </div>
+
+    <!-- CAPA FRONTAL (Frente do menu fechado) -->
+    <div class="column capa-frontal">
+        <h1 class="capa-titulo">Menu de<br>Conversas</h1>
+        <div class="capa-subtitulo">Espie o que tem do outro lado</div>
+        
+        <!-- Salve a fechadura mágica na pasta IMG com o nome capa-menu.jpg -->
+        <img src="IMG/capa-menu.jpg" alt="Ilustração de uma fechadura mágica" class="foto-capa">
+        
+    </div>
+
+</div>
+
+</body>
+</html>
